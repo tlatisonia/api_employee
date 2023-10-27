@@ -74,9 +74,7 @@ public function createEmplois(Request $request, int $id): Response
 
 public function jobslist(Request $request): Response
 {
-  
     $personneList = $this->entityManager->getRepository(Personnes::class)->findAll();
-   var_dump($personneList);die();
     $responseArray = [];
 foreach ($personneList as $key => $value){
     $jobRepository = $this->entityManager->getRepository(Emplois::class);

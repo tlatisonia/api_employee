@@ -6,4 +6,4 @@ j'ai pas réussi a faire fonctionner dans le temps les taches suivantes:
 -Renvoient toutes les personnes ayant travaillé pour une entreprise donnée.
 -Renvoient tous les emplois d'une personne entre deux plages de dates.
 
-je pense je suis capable de faire tout les tache demandé mais pas dans 3h.
+je pense je suis capable de faire tout les tache demandé mais j'ai besoin d'un peux plus de temps

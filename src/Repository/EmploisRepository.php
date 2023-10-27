@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Emplois;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Personnes;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Emplois>
@@ -21,20 +22,21 @@ class EmploisRepository extends ServiceEntityRepository
         parent::__construct($registry, Emplois::class);
     }
 
-//    /**
-//     * @return Emplois[] Returns an array of Emplois objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Emplois[] Returns an array of Emplois objects
+     */
+    public function findBypersonField($value): array
+    {
+        return $this->createQueryBuilder('e')
+        ->select("e.id","e.nomEntreprise", "e.posteOccupe","e.dateDebut")
+           ->andWhere('e.id = :val')
+            ->setParameter('val', $value)
+           ->orderBy('e.id', 'ASC')
+          
+           ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Emplois
 //    {

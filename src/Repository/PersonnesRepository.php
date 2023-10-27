@@ -22,20 +22,19 @@ class PersonnesRepository extends ServiceEntityRepository
         parent::__construct($registry, Personnes::class);
     }
 
-//    /**
-//     * @return Personnes[] Returns an array of Personnes objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+    * @return Personnes[] Returns an array of Personnes objects
+    */
+   public function findFields(): array
+   {
+        return $this->createQueryBuilder('p')
+        ->select("p.id","p.nom", "p.prenom","p.dateNaissance")
+           ->orderBy('p.id', 'ASC')
+           ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+    }
 
 //    public function findOneBySomeField($value): ?Personnes
 //    {

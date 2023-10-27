@@ -74,23 +74,23 @@ public function createEmplois(Request $request, int $id): Response
 
 public function jobslist(Request $request): Response
 {
-    $personneList = $this->entityManager->getRepository(Personnes::class)->findAll();
+    $personneList = $this->entityManager->getRepository(Personnes::class)->findFields();
+   
     $responseArray = [];
-foreach ($personneList as $key => $value){
+   foreach ($personneList as $key => $value){
+    
     $jobRepository = $this->entityManager->getRepository(Emplois::class);
-    $jobList = $jobRepository->findBy(['personne'=>$value]);
-     $responseArray[$key]['nom']=$value->getNom();
-     $responseArray[$key]['prenom']=$value->getPrenom();
+    $jobList = $jobRepository->findBypersonField($value["id"]);
+     $responseArray[$key]['nom']=$value["nom"];
+     $responseArray[$key]['prenom']=$value["prenom"];
      $dt = new DateTime("Now");
-    $interval = $dt->diff(new \DateTime($value->getDateNaissance()));
+    $interval = $dt->diff($value["dateNaissance"]);
     $age = $interval->y;
     $responseArray[$key]['age']=$age;
     foreach($jobList as $job){
-        if(empty($job->getDateFin)){
-            $responseArray[$key]['emplois']=$job->getPosteOccupe();   
-        }else{
-            $responseArray[$key]['emplois']="en chomage";   
-        }
+       
+     $responseArray[$key]['emplois']=$job["posteOccupe"];   
+    
     }
 
     

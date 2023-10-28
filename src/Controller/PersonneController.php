@@ -97,13 +97,13 @@ public function jobslist(Request $request): Response
 }
 return new Response(json_encode($responseArray));
 }
-#[Route('/person/{entreprise}', name: 'app_findbyjob',methods:"GET")]
 
-public function findPerson(Request $request,$entreprise): Response
+#[Route('/person/{id}', name: 'app_findbyjob',methods:"GET")]
+
+public function findPerson(Request $request,$id): Response
 {
-    $emplois = $this->entityManager->getRepository(Emplois::class)->findBy(['nomEntreprise'=>$entreprise]);
-    var_dump($emplois);die();
-    $personneList = $this->entityManager->getRepository(Personnes::class)->findBy(['emplois'=>$emplois]);
-    
+    $emplois = $this->entityManager->getRepository(Personnes::class)->findPersonsforjob($id);
+  
+    return new Response(json_encode( $emplois));
 }
 }

@@ -29,11 +29,26 @@ class PersonnesRepository extends ServiceEntityRepository
    {
         return $this->createQueryBuilder('p')
         ->select("p.id","p.nom", "p.prenom","p.dateNaissance")
-           ->orderBy('p.id', 'ASC')
-           ->setMaxResults(10)
+           ->orderBy('p.nom', 'ASC')
            ->getQuery()
            ->getResult()
        ;
+    }
+
+    /**
+    * @return Personnes[] Returns an array of Personnes objects
+    */
+    public function findPersonsforjob($value): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select("p.id","p.nom", "p.prenom","p.dateNaissance","e.nomEntreprise","e.posteOccupe")
+            ->join("p.emplois",'e') // assuming 'emplois' is the association field
+            ->orderBy('p.nom', 'ASC')
+            ->where('e.id = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    public function findOneBySomeField($value): ?Personnes

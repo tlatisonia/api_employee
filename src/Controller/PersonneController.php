@@ -106,4 +106,14 @@ public function findPerson(Request $request,$id): Response
   
     return new Response(json_encode( $emplois));
 }
+
+#[Route('/jobbydate', name: 'app_jobbydate',methods:"POST")]
+
+public function jobBydate(Request $request): Response
+{
+    $data = json_decode($request->getContent(), true);
+    $emplois = $this->entityManager->getRepository(Emplois::class)->findPersonsforjob($data["id"],new \DateTime($data["date1"]),new \DateTime($data["date2"]));
+     
+    return new Response(json_encode( $emplois));
+}
 }

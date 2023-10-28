@@ -38,6 +38,25 @@ class EmploisRepository extends ServiceEntityRepository
         ;
     }
 
+     /**
+    * @return Emplois[] Returns an array of Personnes objects
+    */
+    public function findPersonsforjob($id,$d1,$d2): array
+    {
+        return $this->createQueryBuilder('e')
+            ->select("p.id","p.nom", "p.prenom","e.nomEntreprise","e.posteOccupe")
+            ->join("e.personne",'p') // assuming 'emplois' is the association field
+            ->orderBy('p.nom', 'ASC')
+            ->where(' e.dateDebut <=:d2 and e.dateDebut >=:d1 ')
+            ->andwhere('p.id = :val')
+            ->setParameter('val', $id)
+            ->setParameter('d1', $d1)
+            ->setParameter('d2',$d2)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    public function findOneBySomeField($value): ?Emplois
 //    {
 //        return $this->createQueryBuilder('e')
